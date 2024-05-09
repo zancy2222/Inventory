@@ -415,7 +415,8 @@
       },
       success: function(response) {
         closeModalMedical();
-        fetchMedicalItems(); // Refresh medical items table after adding new medical item
+        window.location.reload();
+
       },
       error: function(xhr, status, error) {
         console.error('Error adding medical item:', error);
@@ -473,7 +474,7 @@
       },
       success: function(response) {
         closeEditModalMedical();
-        fetchMedicalItems(); // Refresh medical items table after updating medical item
+        window.location.reload();
       },
       error: function(xhr, status, error) {
         console.error('Error updating medical item:', error);
