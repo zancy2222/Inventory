@@ -93,6 +93,83 @@
   color: var(--primary-color);
   margin-right: 10px;
 }
+#editModalMedical {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+#editModalMedical .modal-content {
+  background-color: white;
+  margin: 10% auto;
+  padding: 20px;
+  border-radius: 10px;
+  width: 60%;
+  max-width: 400px;
+}
+
+/* Close button style */
+#editModalMedical .close {
+  color: var(--primary-color);
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+#editModalMedical .close:hover,
+#editModalMedical .close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Button styles */
+#editModalMedical .button-container {
+  text-align: center;
+}
+
+#editModalMedical .save-edit-btn {
+  padding: 10px 20px;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+/* Input styles */
+#editModalMedical .input-group {
+  margin-bottom: 20px;
+}
+
+#editModalMedical label {
+  display: block;
+  font-weight: bold;
+  color: var(--primary-color);
+  margin-bottom: 5px;
+}
+
+#editModalMedical input[type="number"],
+#editModalMedical input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid var(--secondary-color);
+  box-sizing: border-box;
+}
+
+/* Icon styles */
+#editModalMedical .icon {
+  color: var(--primary-color);
+  margin-right: 10px;
+}
 
       </style>
     <script src="Assets/script.js" defer></script>
@@ -210,37 +287,9 @@
         <th>Actions</th> <!-- Added Actions column -->
       </tr>
     </thead>
-    <tbody>
-      <tr>
-        <td>John</td>
-        <td>Doe</td>
-        <td>Male</td>
-        <td>
-          <button class="edit-btn">Edit</button>
-          <button class="delete-btn">Delete</button>
-        </td>
-      </tr>
-      <tr>
-        <td>Jane</td>
-        <td>Doe</td>
-        <td>Female</td>
-        <td>
-          <button class="edit-btn">Edit</button>
-          <button class="delete-btn">Delete</button>
-        </td>
-      </tr>
-      <tr>
-        <td>Jack</td>
-        <td>Doe</td>
-        <td>Male</td>
-        <td>
-          <button class="edit-btn">Edit</button>
-          <button class="delete-btn">Delete</button>
-        </td>
-      </tr>
-    </tbody>
+    <tbody id="medicalItemsTableBody"></tbody> <!-- Populated dynamically -->
   </table>
-  
+
 </div>
 
 <!-- Modal for adding medical item -->
@@ -248,23 +297,54 @@
   <div class="modal-content">
     <span class="close" onclick="closeModalMedical()">&times;</span>
     <h2>Add New Medical Item</h2>
-    <div class="input-group">
-      <label for="medicalItemName">Medical Item Name:</label>
-      <input type="text" id="medicalItemName" name="medicalItemName" placeholder="Enter medical item name...">
-    </div>
-    <div class="input-group">
-      <label for="medicalItemQty">Medical Item Quantity:</label>
-      <input type="number" id="medicalItemQty" name="medicalItemQty" placeholder="Enter medical item quantity..." min="1">
-    </div>
-    <div class="input-group">
-      <label for="medicalItemDesc">Medical Item Description:</label>
-      <input type="text" id="medicalItemDesc" name="medicalItemDesc" placeholder="Enter medical item description...">
-    </div>
-    <div class="button-container">
-      <button class="add-btn">Add Medical Item</button>
-    </div>
+    <form id="addMedicalItemForm">
+      <div class="input-group">
+        <label for="medicalItemName">Medical Item Name:</label>
+        <input type="text" id="medicalItemName" name="medicalItemName" placeholder="Enter medical item name...">
+      </div>
+      <div class="input-group">
+        <label for="medicalItemQty">Medical Item Quantity:</label>
+        <input type="number" id="medicalItemQty" name="medicalItemQty" placeholder="Enter medical item quantity..." min="1">
+      </div>
+      <div class="input-group">
+        <label for="medicalItemDesc">Medical Item Description:</label>
+        <input type="text" id="medicalItemDesc" name="medicalItemDesc" placeholder="Enter medical item description...">
+      </div>
+      <div class="button-container">
+        <button type="button" class="add-btn" onclick="addMedicalItem()">Add Medical Item</button>
+      </div>
+    </form>
   </div>
 </div>
+
+<!-- Modal for editing medical item -->
+<div id="editModalMedical" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeEditModalMedical()">&times;</span>
+    <h2>Edit Medical Item</h2>
+    <form id="editMedicalItemForm">
+      <input type="hidden" id="editMedicalItemId" name="editMedicalItemId">
+      <div class="input-group">
+        <label for="editMedicalItemName">Medical Item Name:</label>
+        <input type="text" id="editMedicalItemName" name="editMedicalItemName">
+      </div>
+      <div class="input-group">
+        <label for="editMedicalItemQty">Medical Item Quantity:</label>
+        <input type="number" id="editMedicalItemQty" name="editMedicalItemQty" min="1">
+      </div>
+      <div class="input-group">
+        <label for="editMedicalItemDesc">Medical Item Description:</label>
+        <input type="text" id="editMedicalItemDesc" name="editMedicalItemDesc">
+      </div>
+      <div class="button-container">
+        <button type="button" class="save-edit-btn" onclick="updateMedicalItem()">Save</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <script>
   // Function to open the medical item modal
@@ -277,7 +357,104 @@
     document.getElementById("myModalMedical").style.display = "none";
   }
 </script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+  // Function to open the edit medical item modal
+  function openEditModalMedical(medicalItemId) {
+    document.getElementById("editModalMedical").style.display = "block";
+    fetchMedicalItemData(medicalItemId);
+  }
 
+  // Function to close the edit medical item modal
+  function closeEditModalMedical() {
+    document.getElementById("editModalMedical").style.display = "none";
+  }
+
+  // Function to add new medical item using AJAX
+  function addMedicalItem() {
+    var medicalItemName = $('#medicalItemName').val();
+    var medicalItemQty = $('#medicalItemQty').val();
+    var medicalItemDesc = $('#medicalItemDesc').val();
+
+    $.ajax({
+      type: 'POST',
+      url: 'Partials/add_medical_item.php',
+      data: {
+        medicalItemName: medicalItemName,
+        medicalItemQty: medicalItemQty,
+        medicalItemDesc: medicalItemDesc
+      },
+      success: function(response) {
+        closeModalMedical();
+        fetchMedicalItems(); // Refresh medical items table after adding new medical item
+      },
+      error: function(xhr, status, error) {
+        console.error('Error adding medical item:', error);
+      }
+    });
+  }
+
+  // Function to fetch medical items using AJAX
+  function fetchMedicalItems() {
+    $.ajax({
+      type: 'GET',
+      url: 'Partials/fetch_medical_items.php',
+      success: function(response) {
+        $('#medicalItemsTableBody').html(response);
+      },
+      error: function(xhr, status, error) {
+        console.error('Error fetching medical items:', error);
+      }
+    });
+  }
+
+  // Function to fetch medical item data for editing
+  function fetchMedicalItemData(medicalItemId) {
+    $.ajax({
+      type: 'GET',
+      url: 'Partials/fetch_medical_item_data.php?id=' + medicalItemId,
+      success: function(data) {
+        var medicalItemData = JSON.parse(data);
+        $('#editMedicalItemId').val(medicalItemData.Id);
+        $('#editMedicalItemName').val(medicalItemData.Medical_item_name);
+        $('#editMedicalItemQty').val(medicalItemData.Medical_item_qty);
+        $('#editMedicalItemDesc').val(medicalItemData.Medical_item_descriptions);
+      },
+      error: function(xhr, status, error) {
+        console.error('Error fetching medical item data:', error);
+      }
+    });
+  }
+
+  // Function to update medical item using AJAX
+  function updateMedicalItem() {
+    var medicalItemId = $('#editMedicalItemId').val();
+    var medicalItemName = $('#editMedicalItemName').val();
+    var medicalItemQty = $('#editMedicalItemQty').val();
+    var medicalItemDesc = $('#editMedicalItemDesc').val();
+
+    $.ajax({
+      type: 'POST',
+      url: 'Partials/update_medical_item.php',
+      data: {
+        id: medicalItemId,
+        name: medicalItemName,
+        qty: medicalItemQty,
+        desc: medicalItemDesc
+      },
+      success: function(response) {
+        closeEditModalMedical();
+        fetchMedicalItems(); // Refresh medical items table after updating medical item
+      },
+      error: function(xhr, status, error) {
+        console.error('Error updating medical item:', error);
+      }
+    });
+  }
+
+  // Initial call to fetch medical items when the page loads
+  fetchMedicalItems();
+</script>
 
   </body>
 </html>
