@@ -371,6 +371,39 @@ require_once 'Partials/db_conn.php';
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
+
+    <script>
+  // Function to handle deletion of a tool
+  function deleteTool(toolId) {
+    // Confirm with the user before deleting
+    if (confirm("Are you sure you want to delete this tool?")) {
+      // Send AJAX request to delete the tool
+      $.ajax({
+        type: 'POST',
+        url: 'Partials/delete_tool.php',
+        data: {
+          id: toolId
+        },
+        success: function(response) {
+          // If deletion is successful, remove the corresponding row from the table
+          $('#row_' + toolId).remove();
+          window.location.reload();
+        },
+        error: function(xhr, status, error) {
+          console.error('Error deleting tool:', error);
+        }
+      });
+    }
+  }
+
+  // Event listener for delete buttons
+  $(document).on('click', '.delete-btn', function() {
+    var toolId = $(this).data('id');
+    deleteTool(toolId);
+  });
+</script>
+
+
 <script>
     // Event listener for Save button click
     $(document).on('click', '.save-edit-btn', function() {
