@@ -41,30 +41,6 @@
             </li>
           </ul>
 
-          <ul class="menu_item">
-            <div class="menu_title flex">
-              <span class="title">Stocks</span>
-              <span class="line"></span>
-            </div>
-            <li class="item">
-              <a href="Tools.php" class="link flex">
-                <i class='bx bxs-wrench'></i>
-                <span>Tools</span>
-              </a>
-            </li>
-            <li class="item">
-              <a href="Equipment.php" class="link flex">
-                <i class='bx bxs-briefcase'></i>
-                <span>Equipment</span>
-              </a>
-            </li>
-            <li class="item">
-              <a href="MedicItems.php" class="link flex">
-                <i class='bx bxs-injection'></i>
-                <span>Medical Items</span>
-              </a>
-            </li>
-          </ul>
 
           <ul class="menu_item">
             <div class="menu_title flex">
@@ -77,12 +53,7 @@
                 <span>Borrowed Items</span>
               </a>
             </li>
-            <li class="item">
-              <a href="Available_Items.php" class="link flex">
-                <i class='bx bx-task'></i>
-                <span>Available Items</span>
-              </a>
-            </li>
+
             <li class="item">
               <a href="#" class="link flex">
                 <i class='bx bx-receipt'></i>
