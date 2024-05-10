@@ -174,7 +174,7 @@
     <nav class="sidebar locked">
       <div class="logo_items flex">
         <span class="nav_image">
-          <img src="Assets/Main.jpg" alt="logo_img" />
+          <img src="Assets/Flogo.jpg" alt="logo_img" />
         </span>
         <span class="logo_name">Admin</span>
         <i class="bx bx-lock-alt" id="lock-icon" title="Unlock Sidebar"></i>
@@ -255,7 +255,7 @@
 
         <div class="sidebar_profile flex">
           <span class="nav_image">
-            <img src="Assets/Main.jpg" alt="logo_img" />
+            <img src="Assets/Flogo.jpg" alt="logo_img" />
           </span>
           <div class="data_text">
             <span class="name">ADMIN</span>

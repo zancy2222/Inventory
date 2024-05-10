@@ -13,7 +13,7 @@
     <nav class="sidebar locked">
       <div class="logo_items flex">
         <span class="nav_image">
-          <img src="Assets/Main.jpg" alt="logo_img" />
+          <img src="Assets/Flogo.jpg" alt="logo_img" />
         </span>
         <span class="logo_name">Admin</span>
         <i class="bx bx-lock-alt" id="lock-icon" title="Unlock Sidebar"></i>
@@ -54,18 +54,13 @@
               </a>
             </li>
 
-            <li class="item">
-              <a href="#" class="link flex">
-                <i class='bx bx-receipt'></i>
-                <span>History</span>
-              </a>
-            </li>
+          
           </ul>
         </div>
 
         <div class="sidebar_profile flex">
           <span class="nav_image">
-            <img src="Assets/Main.jpg" alt="logo_img" />
+            <img src="Assets/Flogo.jpg" alt="logo_img" />
           </span>
           <div class="data_text">
             <span class="name">ADMIN</span>
@@ -85,13 +80,45 @@
     </div>
   </div>
   <table>
-    <thead>
+        <thead>
+            <tr>
+                <th>Borrower</th>
+                <th>Item Code</th>
+                <th>Item Name</th>
+                <th>Category</th>
+                <th>Unit of Measurement (UOM)</th>
+                <th>Date Borrowed</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            include 'Partials/db_conn.php';
+            // Fetch data from the BorrowedInventory table
+            $sql = "SELECT BI.*, U.First_name, U.Last_name, I.Item_Code, I.Item_Name, I.Category, I.UOM 
+                    FROM BorrowedInventory BI
+                    INNER JOIN Users U ON BI.User_id = U.Id
+                    INNER JOIN Inventory I ON BI.Inventory_Id = I.id
+                    ORDER BY BI.Date_Borrowed DESC"; 
+            $result = $conn->query($sql);
 
-    </thead>
-    <tbody>
-
-    </tbody>
-  </table>
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    echo "<tr>";
+                    echo "<td>" . $row['First_name'] . " " . $row['Last_name'] . "</td>";
+                    echo "<td>" . $row['Item_Code'] . "</td>";
+                    echo "<td>" . $row['Item_Name'] . "</td>";
+                    echo "<td>" . $row['Category'] . "</td>";
+                    echo "<td>" . $row['UOM'] . "</td>";
+                    echo "<td>" . $row['Date_Borrowed'] . "</td>";
+                   
+                    echo "</tr>";
+                }
+            } else {
+                echo "<tr><td colspan='8'>No items found in inventory history</td></tr>";
+            }
+            ?>
+        </tbody>
+    </table>
 </div>
 
 

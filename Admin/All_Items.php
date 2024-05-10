@@ -1,3 +1,26 @@
+<?php
+// Include the database connection file
+require_once 'Partials/db_conn.php';
+
+// Define the default sorting column and order
+$sortColumn = isset($_GET['sort']) ? $_GET['sort'] : 'Item_Name'; // Default sorting column is Item Name
+$sortOrder = isset($_GET['order']) ? $_GET['order'] : 'ASC'; // Default sorting order is ascending
+
+// Fetch data from the Inventory table with sorting
+$sql = "SELECT * FROM Inventory ORDER BY $sortColumn $sortOrder";
+$result = $conn->query($sql);
+
+// Define sorting parameters for the table headers
+$sortParams = [
+    'Item_Code' => 'Item Code',
+    'Item_Name' => 'Item Name',
+    'Category' => 'Category',
+    'Quantity' => 'Quantity',
+    'UOM' => 'UOM',
+    'Date_Added' => 'Date Added'
+];
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,10 +33,10 @@
   <link flex href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
   <style>
     :root {
-      --primary-color: #798777;
-      --secondary-color: #A2B29F;
-      --tertiary-color: #BDD2B6;
-      --bg-color: #F8EDE3;
+      --primary-color: #9c2989;
+      --secondary-color: #9c2989;
+      --tertiary-color: #9c2989;
+      --bg-color: #9c2989;
     }
 
     .modal {
@@ -96,7 +119,7 @@
   <nav class="sidebar locked">
     <div class="logo_items flex">
       <span class="nav_image">
-        <img src="Assets/Main.jpg" alt="logo_img" />
+        <img src="Assets/Flogo.jpg" alt="logo_img" />
       </span>
       <span class="logo_name">Admin</span>
       <i class="bx bx-lock-alt" id="lock-icon" title="Unlock Sidebar"></i>
@@ -137,18 +160,13 @@
             </a>
           </li>
 
-          <li class="item">
-            <a href="#" class="link flex">
-              <i class='bx bx-receipt'></i>
-              <span>History</span>
-            </a>
-          </li>
+
         </ul>
       </div>
 
       <div class="sidebar_profile flex">
         <span class="nav_image">
-          <img src="Assets/Main.jpg" alt="logo_img" />
+          <img src="Assets/Flogo.jpg" alt="logo_img" />
         </span>
         <div class="data_text">
           <span class="name">ADMIN</span>
@@ -170,49 +188,49 @@
   <table>
     <thead>
       <tr>
-        <th>Item Code</th>
-        <th>Item Name</th>
-        <th>Category</th>
-        <th>Quantity</th>
-        <th>UOM</th>
-        <th>Date Added</th>
-        <th>Actions</th> <!-- Added Actions column -->
+        <!-- Table headers with sorting links -->
+        <?php foreach ($sortParams as $column => $label) : ?>
+          <th>
+            <a style="text-decoration: none; color:#9c2989;" href="?sort=<?php echo $column ?>&order=<?php echo ($sortColumn == $column && $sortOrder == 'ASC') ? 'DESC' : 'ASC' ?>">
+              <?php echo $label ?>
+              <?php if ($sortColumn == $column) : ?>
+                <!-- Display sorting arrow -->
+                <?php echo ($sortOrder == 'ASC') ? '<i class="bx bx-sort-up"></i>' : '<i class="bx bx-sort-down"></i>' ?>
+              <?php endif; ?>
+            </a>
+          </th>
+        <?php endforeach; ?>
+        <!-- Added Actions column -->
+        <th>Actions</th>
       </tr>
     </thead>
     <tbody>
-  <?php
-  require_once 'Partials/db_conn.php';
+      <?php
+      if ($result->num_rows > 0) {
+        // Output table rows
+        while ($row = $result->fetch_assoc()) {
+          echo "<tr>";
+          echo "<td>" . $row['Item_Code'] . "</td>";
+          echo "<td>" . $row['Item_Name'] . "</td>";
+          echo "<td>" . $row['Category'] . "</td>";
+          echo "<td>" . $row['Quantity'] . "</td>";
+          echo "<td>" . $row['UOM'] . "</td>";
+          echo "<td>" . $row['Date_Added'] . "</td>";
+          // Edit button
+          echo "<td><button class='edit-btn' onclick='openEditForm(" . $row['id'] . ")'>Edit</button>
+          <button class='delete-btn' data-id='" . $row['id'] . "'>Delete</button>
+          </td>";
+          echo "</tr>";
+        }
+      } else {
+        // Output message if no records found
+        echo "<tr><td colspan='8'>No items found in inventory</td></tr>";
+      }
 
-  // Fetch data from the Inventory table
-  $sql = "SELECT * FROM Inventory";
-  $result = $conn->query($sql);
-
-  if ($result->num_rows > 0) {
-    // Output table rows
-    while ($row = $result->fetch_assoc()) {
-      echo "<tr>";
-      echo "<td>" . $row['Item_Code'] . "</td>";
-      echo "<td>" . $row['Item_Name'] . "</td>";
-      echo "<td>" . $row['Category'] . "</td>";
-      echo "<td>" . $row['Quantity'] . "</td>";
-      echo "<td>" . $row['UOM'] . "</td>";
-      echo "<td>" . $row['Date_Added'] . "</td>";
-      // Edit button
-      echo "<td><button class='edit-btn' onclick='openEditForm(" . $row['id'] . ")'>Edit</button>
-
-      <button class='delete-btn' data-id='" . $row['id'] . "'>Delete</button>
-      </td>";
-      echo "</tr>";
-    }
-  } else {
-    // Output message if no records found
-    echo "<tr><td colspan='7'>No items found in inventory</td></tr>";
-  }
-
-  // Close database connection
-  $conn->close();
-  ?>
-</tbody>
+      // Close database connection
+      $conn->close();
+      ?>
+    </tbody>
   </table>
 </div>
 

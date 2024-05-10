@@ -8,7 +8,7 @@
         }
         body {
           min-height: 100vh;
-          background: #f8ede3; /* Updated background color */
+          background:#fca6ffbe; /* Updated background color */
         }
         /* Pre css */
         .flex {
@@ -34,7 +34,7 @@
           left: 0;
           height: 100%;
           width: 270px;
-          background: #fff;
+          background: #fca6ffbe;
           padding: 15px 10px;
           box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
           transition: all 0.4s ease;
@@ -48,7 +48,7 @@
         .logo_name {
           font-size: 22px;
           margin-right: 30px;
-          color: #798777; /* Updated text color */
+          color: #9c2989; /* Updated text color */
           font-weight: 500px;
           transition: all 0.3s ease;
         }
@@ -121,7 +121,7 @@
         }
         .link:hover {
           color: #fff;
-          background-color: #798777; /* Updated hover background color */
+          background-color: #9c2989; /* Updated hover background color */
         }
         .link span {
           white-space: nowrap;
@@ -144,11 +144,11 @@
         }
         .sidebar_profile .name {
           font-size: 18px;
-          color: #798777; /* Updated text color */
+          color: #9c2989; /* Updated text color */
         }
         .sidebar_profile .email {
           font-size: 15px;
-          color: #798777; /* Updated text color */
+          color: #9c2989; /* Updated text color */
         }
         
         /* Navbar */
@@ -159,7 +159,7 @@
           top: 0;
           left: 60%;
           transform: translateX(-50%);
-          background: #fff;
+          background: #9c2989;
           padding: 10px 20px;
           border-radius: 0 0 8px 8px;
           justify-content: space-between;
@@ -248,8 +248,8 @@
           margin-top: 20px;
         }
         thead {
-          background-color: #bdd2b6; /* Updated header background color */
-          color: #798777; /* Updated header text color */
+          background-color: #fca6ffbe; /* Updated header background color */
+          color: #9c2989; /* Updated header text color */
         }
         thead th {
           padding: 15px 20px;
@@ -263,14 +263,14 @@
           padding: 15px 20px;
         }
         tbody tr:nth-child(even) {
-          background-color: #bdd2b6; /* Updated even row background color */
+          background-color: #fca6ffbe; /* Updated even row background color */
         }
         tbody tr:hover {
-          background-color: #a2b29f; /* Updated hover row background color */
+          background-color: #fca6ffbe; /* Updated hover row background color */
           color: #fff; /* Updated hover row text color */
         }
         .edit-btn, .delete-btn {
-          background-color: #a2b29f; /* Updated button background color */
+          background-color: #fca6ffbe; /* Updated button background color */
           color: #fff; /* Updated button text color */
           border: none;
           padding: 8px 16px;
@@ -279,7 +279,7 @@
           transition: background-color 0.3s ease;
         }
         .edit-btn:hover, .delete-btn:hover {
-          background-color: #798777; /* Updated button hover background color */
+          background-color: #9c2989; /* Updated button hover background color */
         }
         
         /* Responsive */

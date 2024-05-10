@@ -10,7 +10,7 @@
             margin: 0;
             padding: 0;
             font-family: Arial, sans-serif;
-            background-color: #F8EDE3;
+            background-color: #9c2989;
         }
 
         .container {
@@ -24,7 +24,7 @@
         }
 
         h1 {
-            color: #798777;
+            color:#9c2989;
             margin-bottom: 30px;
             font-size: 28px;
         }
@@ -45,7 +45,7 @@
             left: 40px;
             top: 50%;
             transform: translateY(-50%);
-            color: #A2B29F;
+            color: #9c2989;
         }
 
         input,
@@ -55,7 +55,7 @@
             padding-left: 50px;
             border: none;
             border-radius: 40px;
-            background-color: #F8EDE3;
+            background-color: #fca6ffbe;
             font-size: 18px;
             box-sizing: border-box;
         }
@@ -70,7 +70,7 @@
             padding: 20px;
             border: none;
             border-radius: 40px;
-            background-color: #798777;
+            background-color:#9c2989;
             color: #FFF;
             font-size: 20px;
             cursor: pointer;
@@ -79,18 +79,18 @@
         }
 
         button:hover {
-            background-color: #596D60;
+            background-color: #fca6ffbe;
         }
 
         p {
             grid-column: span 3;
             margin-top: 20px;
-            color: #798777;
+            color:#9c2989;
             font-size: 16px;
         }
 
         a {
-            color: #798777;
+            color:#9c2989;
             text-decoration: none;
         }
 

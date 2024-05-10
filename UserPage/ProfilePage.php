@@ -1,6 +1,6 @@
 <?php
 // Include the database connection file
-require_once '../Partials/db_conn.php';
+require_once 'Partials/db_conn.php';
 
 // Check if the user ID is provided in the URL
 if(isset($_GET['id'])) {
@@ -70,74 +70,74 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>Profile</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
    <style>
-    body {
-        margin: 0;
-        padding: 0;
-        font-family: Arial, sans-serif;
-        background-color: #F8EDE3;
-    }
-    
-    .navbar {
-        background-color: #798777;
-        padding: 15px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-    
-    .navbar-brand {
-        color: #FFF;
-        font-size: 24px;
-        font-weight: bold;
-        text-decoration: none;
-        margin-left: 20px;
-        display: flex;
-        align-items: center;
-        transition: color 0.3s ease;
-    }
-    
-    .navbar-brand:hover {
-        color: #f1f1f1;
-    }
-    
-    .navbar-nav {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-        display: flex;
-        align-items: center;
-        margin-right: 20px;
-    }
-    
-    .nav-item {
-        margin-left: 20px;
-    }
-    
-    .nav-link {
-        color: #FFF;
-        text-decoration: none;
-        font-size: 18px;
-        display: flex;
-        align-items: center;
-        transition: color 0.3s ease;
-    }
-    
-    .nav-link:hover {
-        color: #f1f1f1;
-    }
-    
-    .nav-icon {
-        margin-right: 8px;
-        transition: transform 0.3s ease;
-    }
-    
-    .nav-link:hover .nav-icon {
-        transform: scale(1.1);
-    }
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #9c2989;
+        }
+
+        .navbar {
+            background-color: #fca6ffbe;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar-brand {
+            color: #FFF;
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+            margin-left: 20px;
+            display: flex;
+            align-items: center;
+            transition: color 0.3s ease;
+        }
+
+        .navbar-brand:hover {
+            color: #f1f1f1;
+        }
+
+        .navbar-nav {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            margin-right: 20px;
+        }
+
+        .nav-item {
+            margin-left: 20px;
+        }
+
+        .nav-link {
+            color: #FFF;
+            text-decoration: none;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: #f1f1f1;
+        }
+
+        .nav-icon {
+            margin-right: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .nav-link:hover .nav-icon {
+            transform: scale(1.1);
+        }
     
     .profile-section {
-        background-color: #A2B29F;
+        background-color:#f0f0f0;
         padding: 20px;
         margin: 20px auto;
         border-radius: 10px;
@@ -146,13 +146,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     
     .profile-section h2 {
-        color: #FFF;
+        color: #fca6ffbe;
         text-align: center;
         margin-bottom: 20px;
     }
     
     .profile-info {
-        background-color: #BDD2B6;
+        background-color:  #9c2989;
         padding: 20px;
         border-radius: 10px;
     }
@@ -164,7 +164,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     .input-group label {
         display: block;
         font-weight: bold;
-        color: #798777;
+        color: #fca6ffbe;
         margin-bottom: 5px;
     }
     
@@ -173,7 +173,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         width: 100%;
         padding: 10px;
         border-radius: 5px;
-        border: 1px solid #798777;
+        border: 1px solid #fca6ffbe;
         box-sizing: border-box;
     }
     
@@ -183,7 +183,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     .save-btn {
         padding: 10px 20px;
-        background-color: #798777;
+        background-color: #fca6ffbe;
         color: #FFF;
         border: none;
         border-radius: 5px;
@@ -195,17 +195,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     .save-btn:hover {
         background-color: #A2B29F;
     }
-    
+    .navbar-brand img {
+            width: 150px; /* Adjust the size as needed */
+            height: auto;
+            margin-right: 10px; /* Add some spacing between the logo and text */
+        }
    </style>
 </head>
 <body>
     <nav class="navbar">
-        <a href="#" class="navbar-brand"><i class="fas fa-cube nav-icon"></i>Stock & Inventory Management System</a>
+    <a href="#" class="navbar-brand"><img src="../Assets/CMLSLOGO.png" alt="Logo"></a>
         <ul class="navbar-nav">
-            <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-home nav-icon"></i>Home</a></li>
-            <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-user-friends nav-icon"></i>Borrower</a></li>
-            <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-user nav-icon"></i>Profile</a></li>
-            <li class="nav-item"><a href="../Login.php" class="nav-link"><i class="fas fa-sign-in-alt nav-icon"></i>Log out</a></li>
+        <li class="nav-item"><a href="Homepage.php?id=<?php echo $user_id; ?>" class="nav-link"><i class="fas fa-home nav-icon"></i>Home</a></li>
+            <li class="nav-item"><a href="index.php?id=<?php echo $user_id; ?>" class="nav-link"><i class="fas fa-user-friends nav-icon"></i>Borrower</a></li>
+            <li class="nav-item"><a href="ProfilePage.php?id=<?php echo $user_id; ?>" class="nav-link"><i class="fas fa-user nav-icon"></i>Profile</a></li>
+            <li class="nav-item"><a href="../Home.php" class="nav-link"><i class="fas fa-sign-in-alt nav-icon"></i>Log-out</a></li>
         </ul>
     </nav>
 

@@ -178,71 +178,50 @@ if(isset($_GET['id'])) {
     <img src="../Assets/COMBINED.png" alt="Logo" class="logo-img">
 
     <div class="inventory-section">
-        <h2>Inventory Items</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Item Code</th>
-                    <th>Item Name</th>
-                    <th>Category</th>
-                    <th>Quantity</th>
-                    <th>Unit of Measurement (UOM)</th>
-                    <th>Date Added</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                // Fetch data from the Inventory table
-                $sql = "SELECT * FROM Inventory";
-                $result = $conn->query($sql);
+    <h2>Inventory History</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Borrower</th>
+                <th>Item Code</th>
+                <th>Item Name</th>
+                <th>Category</th>
+                <th>Unit of Measurement (UOM)</th>
+                <th>Date Borrowed</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            // Fetch data from the BorrowedInventory table
+            $sql = "SELECT BI.*, U.First_name, U.Last_name, I.Item_Code, I.Item_Name, I.Category, I.UOM 
+                    FROM BorrowedInventory BI
+                    INNER JOIN Users U ON BI.User_id = U.Id
+                    INNER JOIN Inventory I ON BI.Inventory_Id = I.id
+                    ORDER BY BI.Date_Borrowed DESC"; // Assuming you want to display the most recent borrowings first
+            $result = $conn->query($sql);
 
-                if ($result->num_rows > 0) {
-                    while ($row = $result->fetch_assoc()) {
-                        echo "<tr>";
-                        echo "<td>" . $row['Item_Code'] . "</td>";
-                        echo "<td>" . $row['Item_Name'] . "</td>";
-                        echo "<td>" . $row['Category'] . "</td>";
-                        echo "<td>" . $row['Quantity'] . "</td>";
-                        echo "<td>" . $row['UOM'] . "</td>";
-                        echo "<td>" . $row['Date_Added'] . "</td>";
-                        // Borrowed button
-                        echo "<td>
-                            <button class='borrowed-btn' onclick='borrowItem(" . $row['id'] . ", " . $user_id . ")'>Borrowed</button>
-                        </td>";
-                        echo "</tr>";
-                    }
-                } else {
-                    echo "<tr><td colspan='7'>No items found in inventory</td></tr>";
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    echo "<tr>";
+                    echo "<td>" . $row['First_name'] . " " . $row['Last_name'] . "</td>";
+                    echo "<td>" . $row['Item_Code'] . "</td>";
+                    echo "<td>" . $row['Item_Name'] . "</td>";
+                    echo "<td>" . $row['Category'] . "</td>";
+                    echo "<td>" . $row['UOM'] . "</td>";
+                    echo "<td>" . $row['Date_Borrowed'] . "</td>";
+                   
+                    echo "</tr>";
                 }
-                ?>
-            </tbody>
-        </table>
-    </div>
-
-
+            } else {
+                echo "<tr><td colspan='8'>No items found in inventory history</td></tr>";
+            }
+            ?>
+        </tbody>
+    </table>
+</div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-<script>
-    function borrowItem(itemId, userId) {
-        if (confirm("Are you sure you want to borrow this item?")) {
-            // AJAX request to handle borrowing
-            $.ajax({
-                type: "POST",
-                url: "Partials/borrow_item.php",
-                data: {
-                    itemId: itemId,
-                    userId: userId
-                },
-                success: function(response) {
-                    alert(response);
-                    window.location.reload();
 
-                }
-            });
-        }
-    }
-</script>
 
 </body>
 
