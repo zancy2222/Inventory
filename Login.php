@@ -115,6 +115,7 @@
                 <i class="fas fa-envelope"></i>
                 <input type="email" name="email" placeholder="Email" required>
             </div>
+            
             <button type="submit">Login</button>
         </form>
 

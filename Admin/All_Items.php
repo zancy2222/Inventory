@@ -338,6 +338,8 @@ $sortParams = [
       success: function(response) {
         alert(response); // Show success message
         closeAddForm(); // Close the form
+        window.location.reload();
+
       },
       error: function(xhr, status, error) {
         console.error("Error adding item:", error); // Log error message
@@ -438,6 +440,7 @@ $(document).on('click', '.delete-btn', function() {
 });
 
 </script>
+
 </body>
 
 </html>

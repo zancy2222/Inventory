@@ -5,11 +5,11 @@ require_once 'db_conn.php';
 // Include PHPMailer files
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
-use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\SMTP; // Add this line
 
 require 'PHPMailer/src/PHPMailer.php';
 require 'PHPMailer/src/Exception.php';
-require 'PHPMailer/src/SMTP.php';
+require 'PHPMailer/src/SMTP.php'; // Add this line
 
 // Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -17,31 +17,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'];
     $password = $_POST['password'];
     $email = $_POST['email'];
-
-    // Check if the default admin account is used
-    if ($username === 'admin' && $email === 'admin@gmail.com' && $password === 'admin') {
-        // Redirect to the admin page
-        header("Location: ../Admin/User.php");
-        exit();
-    }
-
-    // Validate email format
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        // Invalid email format, display error message
-        echo "<script>alert('Invalid email format');</script>";
-        echo "<script>window.location.href = '../Login.php';</script>";
-        exit();
-    }
-
-    // Check if email has the required domain
-    $domain = '@student.fatima.edu.ph';
-    if (substr($email, -strlen($domain)) !== $domain) {
-        // Email does not have the required domain, display error message
-        echo "<script>alert('Email must be from @student.fatima.edu.ph domain');</script>";
-        echo "<script>window.location.href = '../Login.php';</script>";
-        exit();
-    }
-
+  // Check if the default admin account is used
+  if ($username === 'admin' && $email === 'admin@gmail.com' && $password === 'admin') {
+    // Redirect to the admin page
+    header("Location: ../Admin/User.php");
+    exit();
+}
     // Check if the user exists
     $sql = "SELECT * FROM Users WHERE Username='$username' AND Password='$password'";
     $result = $conn->query($sql);
