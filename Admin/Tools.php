@@ -269,10 +269,11 @@
 <div class="table-container">
   <div class="table-header">
     <button class="add-btn" onclick="openAddModal()">Add</button>
-    <div class="search-box">
-      <input type="text" placeholder="Search...">
-      <button><i class='bx bx-search'></i></button>
-    </div>
+  <div class="search-box">
+    <input type="text" id="searchInput" placeholder="Search...">
+    <button><i class='bx bx-search'></i></button>
+</div>
+
   </div>
   <table>
     <thead>
@@ -488,5 +489,35 @@ function fetchToolData(toolId) {
         });
         
     </script>
+
+<script>
+    // Function to handle search functionality
+    function searchTable() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("searchInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementsByTagName("table")[0]; // Assuming this is the only table on the page
+        tr = table.getElementsByTagName("tr");
+
+        // Loop through all table rows, and hide those that don't match the search query
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td");
+            for (var j = 0; j < td.length; j++) {
+                if (td[j]) {
+                    txtValue = td[j].textContent || td[j].innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                        break;
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+    }
+
+    // Add event listener to the search input field
+    document.getElementById("searchInput").addEventListener("keyup", searchTable);
+</script>
   </body>
 </html>
